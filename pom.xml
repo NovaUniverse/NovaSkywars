@@ -17,6 +17,16 @@
 		<maven-deploy-plugin-version>3.0.0-M1</maven-deploy-plugin-version>
 	</properties>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>novauniverse</id>
+			<url>https://nexus.novauniverse.net/repository/novauniverse/</url>
+		</snapshotRepository>
+		<repository>
+			<id>novauniverse</id>
+			<url>https://nexus.novauniverse.net/repository/novauniverse/</url>
+		</repository>
+	</distributionManagement>
 	
 	<build>
 		<resources>
@@ -107,8 +117,8 @@
 		</repository>
 
 		<repository>
-			<id>zeeraas repo</id>
-			<url>https://nexus.zeeraa.net/repository/maven-group/</url>
+			<id>novauniverse-group</id>
+			<url>https://nexus.novauniverse.net/repository/novauniverse-group/</url>
 		</repository>
 	</repositories>
 

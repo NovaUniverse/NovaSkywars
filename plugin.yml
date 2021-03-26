@@ -2,5 +2,5 @@ name: NovaSkywars
 main: net.novauniverse.games.skywars.NovaSkywars
 description: Novauniverse Skywars
 version: 1.0
-depend: [NovaCore]
+depend: [NovaCore, NovaCoreGameEngine]
 softdepend: [NovaGamesTarget]
