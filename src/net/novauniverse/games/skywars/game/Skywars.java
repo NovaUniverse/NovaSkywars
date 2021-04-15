@@ -11,7 +11,6 @@ import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
@@ -35,6 +34,8 @@ import net.zeeraa.novacore.commons.tasks.Task;
 import net.zeeraa.novacore.commons.timers.TickCallback;
 import net.zeeraa.novacore.commons.utils.Callback;
 import net.zeeraa.novacore.spigot.NovaCore;
+import net.zeeraa.novacore.spigot.abstraction.VersionIndependantUtils;
+import net.zeeraa.novacore.spigot.abstraction.enums.VersionIndependantSound;
 import net.zeeraa.novacore.spigot.module.modules.game.GameEndReason;
 import net.zeeraa.novacore.spigot.module.modules.game.MapGame;
 import net.zeeraa.novacore.spigot.module.modules.game.elimination.PlayerQuitEliminationAction;
@@ -140,6 +141,8 @@ public class Skywars extends MapGame implements Listener {
 		}
 		started = true;
 
+		Log.debug("Skywars", "Initial player list size is: " + players.size());
+		
 		getActiveMap().getWorld().setGameRuleValue("doMobSpawning", "false");
 		getActiveMap().getWorld().setDifficulty(Difficulty.PEACEFUL);
 
@@ -194,7 +197,7 @@ public class Skywars extends MapGame implements Listener {
 				}, 5 * 20);
 
 				for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-					player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 2F);
+					VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.NOTE_PLING, 1F, 1F);s
 				}
 				
 				sendBeginEvent();
@@ -205,7 +208,7 @@ public class Skywars extends MapGame implements Listener {
 			@Override
 			public void execute(long timeLeft) {
 				for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-					player.playSound(player.getLocation(), Sound.NOTE_PLING, 1F, 1.3F);
+					VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.NOTE_PLING, 1F, 1.3F);
 					if (NovaCore.getInstance().getActionBar() != null) {
 						NovaCore.getInstance().getActionBar().sendMessage(player, ChatColor.GOLD + "" + ChatColor.BOLD + "Starting in: " + ChatColor.AQUA + ChatColor.BOLD + timeLeft);
 					}
@@ -269,7 +272,7 @@ public class Skywars extends MapGame implements Listener {
 			PlayerUtils.clearPlayerInventory(p);
 			PlayerUtils.resetPlayerXP(p);
 			p.setGameMode(GameMode.SPECTATOR);
-			p.playSound(p.getLocation(), Sound.WITHER_DEATH, 1F, 1F);
+			VersionIndependantUtils.get().playSound(p, p.getLocation(), VersionIndependantSound.WITHER_DEATH, 1F, 1F);
 		}
 	}
 
