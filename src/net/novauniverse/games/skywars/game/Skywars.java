@@ -142,7 +142,7 @@ public class Skywars extends MapGame implements Listener {
 		started = true;
 
 		Log.debug("Skywars", "Initial player list size is: " + players.size());
-		
+
 		getActiveMap().getWorld().setGameRuleValue("doMobSpawning", "false");
 		getActiveMap().getWorld().setDifficulty(Difficulty.PEACEFUL);
 
@@ -197,9 +197,9 @@ public class Skywars extends MapGame implements Listener {
 				}, 5 * 20);
 
 				for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-					VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.NOTE_PLING, 1F, 1F);s
+					VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.NOTE_PLING, 1F, 1F);
 				}
-				
+
 				sendBeginEvent();
 			}
 		});
