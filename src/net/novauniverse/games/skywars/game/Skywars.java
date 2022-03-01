@@ -61,6 +61,8 @@ public class Skywars extends MapGame implements Listener {
 	private boolean countdownOver;
 
 	public Skywars() {
+		super(NovaSkywars.getInstance());
+		
 		this.started = false;
 		this.ended = false;
 
