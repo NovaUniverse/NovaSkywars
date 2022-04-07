@@ -280,9 +280,7 @@ public class Skywars extends MapGame implements Listener {
 
 	public void setCages(boolean state) {
 		if (hasActiveMap()) {
-			for (Location location : getActiveMap().getStarterLocations()) {
-				setStartCage(location, state);
-			}
+			getActiveMap().getStarterLocations().forEach(location -> setStartCage(location, state));
 		}
 	}
 
