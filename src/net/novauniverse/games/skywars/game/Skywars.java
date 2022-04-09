@@ -159,9 +159,8 @@ public class Skywars extends MapGame implements Listener {
 
 		Collections.shuffle(getActiveMap().getStarterLocations());
 		Log.debug("Start location count: " + getActiveMap().getStarterLocations().size());
-		for (int i = 0; i < 12; i++) {
-			teamStartLocation.add(getActiveMap().getStarterLocations().get(i));
-		}
+		
+		getActiveMap().getStarterLocations().forEach(location -> teamStartLocation.add(location));
 
 		ArrayList<Player> toTeleport = new ArrayList<Player>();
 		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
