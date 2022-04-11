@@ -7,12 +7,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import net.zeeraa.novacore.spigot.gameengine.module.modules.game.events.PlayerEliminatedEvent;
 import net.zeeraa.novacore.spigot.module.NovaModule;
-import net.zeeraa.novacore.spigot.module.modules.game.events.PlayerEliminatedEvent;
 
 public class RegenOnKill extends NovaModule implements Listener {
-	public String getName() {
-		return "RegenOnKill";
+	public RegenOnKill(String name) {
+		super("NovaSkyWars.RegenOnKill");
 	}
 
 	@EventHandler
