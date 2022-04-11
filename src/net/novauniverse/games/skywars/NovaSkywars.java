@@ -142,7 +142,7 @@ public class NovaSkywars extends JavaPlugin implements Listener {
 
 		// Read maps
 		Log.info("Skywars", "Loading maps from " + mapFolder.getPath());
-		GameManager.getInstance().loadMaps(mapFolder, worldFolder);
+		GameManager.getInstance().readMapsFromFolder(mapFolder, worldFolder);
 	}
 
 	@Override
