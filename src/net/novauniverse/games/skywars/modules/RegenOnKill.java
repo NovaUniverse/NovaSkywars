@@ -11,7 +11,7 @@ import net.zeeraa.novacore.spigot.gameengine.module.modules.game.events.PlayerEl
 import net.zeeraa.novacore.spigot.module.NovaModule;
 
 public class RegenOnKill extends NovaModule implements Listener {
-	public RegenOnKill(String name) {
+	public RegenOnKill() {
 		super("NovaSkyWars.RegenOnKill");
 	}
 
