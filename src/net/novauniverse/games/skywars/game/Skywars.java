@@ -143,6 +143,8 @@ public class Skywars extends MapGame implements Listener {
 		}
 		started = true;
 
+		this.setDropItemsOnCombatLog(true);
+		
 		Log.debug("Skywars", "Initial player list size is: " + players.size());
 
 		getActiveMap().getWorld().setGameRuleValue("doMobSpawning", "false");
