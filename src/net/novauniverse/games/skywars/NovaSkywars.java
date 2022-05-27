@@ -15,7 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import net.novauniverse.games.skywars.game.Skywars;
-import net.novauniverse.games.skywars.loottable.hardcodedskywarsloottable.HardCodedSkywarsLootTableV1;
+import net.novauniverse.games.skywars.loottable.hardcodedskywarsloottable.v1.HardCodedSkywarsLootTableV1;
 import net.novauniverse.games.skywars.mapmodule.SkywarsIslandSpecialLootTableMapModule;
 import net.novauniverse.games.skywars.modules.RegenOnKill;
 import net.zeeraa.novacore.commons.log.Log;

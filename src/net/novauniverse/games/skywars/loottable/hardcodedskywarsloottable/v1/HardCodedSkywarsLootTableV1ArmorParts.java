@@ -1,4 +1,4 @@
-package net.novauniverse.games.skywars.loottable.hardcodedskywarsloottable;
+package net.novauniverse.games.skywars.loottable.hardcodedskywarsloottable.v1;
 
 import org.bukkit.Material;
 
