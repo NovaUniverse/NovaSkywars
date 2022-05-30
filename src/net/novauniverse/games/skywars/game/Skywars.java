@@ -165,23 +165,23 @@ public class Skywars extends MapGame implements Listener {
 		getActiveMap().getStarterLocations().forEach(location -> teamStartLocation.add(location));
 
 		ArrayList<Player> toTeleport = new ArrayList<Player>();
-		for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+		Bukkit.getServer().getOnlinePlayers().forEach(player -> {
 			if (players.contains(player.getUniqueId())) {
 				toTeleport.add(player);
 			} else {
 				tpToSpectator(player);
 			}
-		}
+		});
 
-		for (Player p : toTeleport) {
+		toTeleport.forEach(p-> {
 			try {
 				this.tpToArena(p);
 			} catch (Exception e) {
 				p.sendMessage(ChatColor.DARK_RED + "Teleport failed: " + e.getClass().getName() + ". Please contact an admin");
 			}
-		}
-
-		this.started = true;
+		});
+		
+		Bukkit.getServer().getOnlinePlayers().forEach(player -> VersionIndependantUtils.get().sendTitle(player, "", ChatColor.GOLD + "Starting in " + countdownTime + " seconds", 10, 20, 10));
 
 		BasicTimer startTimer = new BasicTimer(countdownTime, 20L);
 		startTimer.addFinishCallback(new Callback() {
@@ -198,22 +198,25 @@ public class Skywars extends MapGame implements Listener {
 						noFallEnabled = false;
 					}
 				}, 5 * 20);
-
-				for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+				
+				Bukkit.getServer().getOnlinePlayers().forEach(player -> {
 					VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.NOTE_PLING, 1F, 1F);
-				}
+					player.setFoodLevel(20);
+					player.setSaturation(20);
+				});
 
 				sendBeginEvent();
 			}
 		});
-
+		
 		startTimer.addTickCallback(new TickCallback() {
 			@Override
 			public void execute(long timeLeft) {
-				for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+				Bukkit.getServer().getOnlinePlayers().forEach(player -> {
 					VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.NOTE_PLING, 1F, 1.3F);
-					VersionIndependantUtils.get().sendActionBarMessage(player, ChatColor.GOLD + "" + ChatColor.BOLD + "Starting in: " + ChatColor.AQUA + ChatColor.BOLD + timeLeft);
-				}
+					VersionIndependantUtils.get().sendActionBarMessage(player, ChatColor.GOLD + "" + ChatColor.BOLD + "Starting in: " + ChatColor.AQUA + ChatColor.BOLD + timeLeft);	
+				});
+				
 				Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Starting in: " + ChatColor.AQUA + ChatColor.BOLD + timeLeft);
 			}
 		});
@@ -224,7 +227,7 @@ public class Skywars extends MapGame implements Listener {
 		playerLocationCheckTask = new SimpleTask(new Runnable() {
 			@Override
 			public void run() {
-				for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+				Bukkit.getServer().getOnlinePlayers().forEach(player -> {
 					if (player.getLocation().getY() < -25) {
 						if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
 							player.setHealth(0);
@@ -236,10 +239,12 @@ public class Skywars extends MapGame implements Listener {
 							}
 						}
 					}
-				}
+				});
 			}
 		}, 5L, 5L);
 		playerLocationCheckTask.start();
+		
+		this.started = true;
 	}
 
 	@Override
@@ -252,7 +257,7 @@ public class Skywars extends MapGame implements Listener {
 
 		ended = true;
 
-		for (Location location : getActiveMap().getStarterLocations()) {
+		getActiveMap().getStarterLocations().forEach(location -> {
 			Firework fw = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
 			FireworkMeta fwm = fw.getFireworkMeta();
 
@@ -260,16 +265,16 @@ public class Skywars extends MapGame implements Listener {
 			fwm.addEffect(RandomFireworkEffect.randomFireworkEffect());
 
 			fw.setFireworkMeta(fwm);
-		}
+		});
 
-		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-			p.setHealth(p.getMaxHealth());
-			p.setFoodLevel(20);
-			PlayerUtils.clearPlayerInventory(p);
-			PlayerUtils.resetPlayerXP(p);
-			p.setGameMode(GameMode.SPECTATOR);
-			VersionIndependantUtils.get().playSound(p, p.getLocation(), VersionIndependantSound.WITHER_DEATH, 1F, 1F);
-		}
+		Bukkit.getServer().getOnlinePlayers().forEach(player -> {
+			player.setHealth(player.getMaxHealth());
+			player.setFoodLevel(20);
+			PlayerUtils.clearPlayerInventory(player);
+			PlayerUtils.resetPlayerXP(player);
+			player.setGameMode(GameMode.SPECTATOR);
+			VersionIndependantUtils.get().playSound(player, player.getLocation(), VersionIndependantSound.WITHER_DEATH, 1F, 1F);
+		});
 	}
 
 	public void setCages(boolean state) {
