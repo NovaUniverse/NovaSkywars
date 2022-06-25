@@ -3,6 +3,7 @@ package net.novauniverse.games.skywars.game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -55,8 +56,8 @@ public class Skywars extends MapGame implements Listener {
 
 	private Task playerLocationCheckTask;
 
-	private ArrayList<Location> placedBlocks;
-	private ArrayList<Location> teamStartLocation;
+	private List<Location> placedBlocks;
+	private List<Location> teamStartLocation;
 
 	private boolean countdownOver;
 
@@ -164,7 +165,7 @@ public class Skywars extends MapGame implements Listener {
 		
 		getActiveMap().getStarterLocations().forEach(location -> teamStartLocation.add(location));
 
-		ArrayList<Player> toTeleport = new ArrayList<Player>();
+		List<Player> toTeleport = new ArrayList<Player>();
 		Bukkit.getServer().getOnlinePlayers().forEach(player -> {
 			if (players.contains(player.getUniqueId())) {
 				toTeleport.add(player);
@@ -398,7 +399,6 @@ public class Skywars extends MapGame implements Listener {
 		Player p = e.getPlayer();
 
 		if (players.contains(p.getUniqueId())) {
-
 			if (p.getGameMode() == GameMode.CREATIVE) {
 				// Allow
 				return;
