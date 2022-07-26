@@ -43,6 +43,8 @@ public class NovaSkywars extends JavaPlugin implements Listener {
 	private boolean combatTagging;
 	private int reconnectTime;
 
+	private boolean disableDefaultEndSound;
+	
 	public boolean isAllowReconnect() {
 		return allowReconnect;
 	}
@@ -55,6 +57,14 @@ public class NovaSkywars extends JavaPlugin implements Listener {
 		return reconnectTime;
 	}
 
+	public boolean isDisableDefaultEndSound() {
+		return disableDefaultEndSound;
+	}
+	
+	public void setDisableDefaultEndSound(boolean disableDefaultEndSound) {
+		this.disableDefaultEndSound = disableDefaultEndSound;
+	}
+
 	@Override
 	public void onEnable() {
 		NovaSkywars.instance = this;
@@ -64,6 +74,8 @@ public class NovaSkywars extends JavaPlugin implements Listener {
 		allowReconnect = getConfig().getBoolean("allow_reconnect");
 		combatTagging = getConfig().getBoolean("combat_tagging");
 		reconnectTime = getConfig().getInt("player_elimination_delay");
+		
+		disableDefaultEndSound = getConfig().getBoolean("disable_default_end_sound");
 
 		GameManager.getInstance().setUseCombatTagging(combatTagging);
 

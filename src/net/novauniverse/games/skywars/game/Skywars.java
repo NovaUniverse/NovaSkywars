@@ -63,7 +63,7 @@ public class Skywars extends MapGame implements Listener {
 
 	public Skywars() {
 		super(NovaSkywars.getInstance());
-		
+
 		this.started = false;
 		this.ended = false;
 
@@ -145,7 +145,7 @@ public class Skywars extends MapGame implements Listener {
 		started = true;
 
 		this.setDropItemsOnCombatLog(true);
-		
+
 		Log.debug("Skywars", "Initial player list size is: " + players.size());
 
 		getActiveMap().getWorld().setGameRuleValue("doMobSpawning", "false");
@@ -162,7 +162,7 @@ public class Skywars extends MapGame implements Listener {
 
 		Collections.shuffle(getActiveMap().getStarterLocations());
 		Log.debug("Start location count: " + getActiveMap().getStarterLocations().size());
-		
+
 		getActiveMap().getStarterLocations().forEach(location -> teamStartLocation.add(location));
 
 		List<Player> toTeleport = new ArrayList<Player>();
@@ -174,14 +174,14 @@ public class Skywars extends MapGame implements Listener {
 			}
 		});
 
-		toTeleport.forEach(p-> {
+		toTeleport.forEach(p -> {
 			try {
 				this.tpToArena(p);
 			} catch (Exception e) {
 				p.sendMessage(ChatColor.DARK_RED + "Teleport failed: " + e.getClass().getName() + ". Please contact an admin");
 			}
 		});
-		
+
 		Bukkit.getServer().getOnlinePlayers().forEach(player -> VersionIndependentUtils.get().sendTitle(player, "", ChatColor.GOLD + "Starting in " + countdownTime + " seconds", 10, 20, 10));
 
 		BasicTimer startTimer = new BasicTimer(countdownTime, 20L);
@@ -199,7 +199,7 @@ public class Skywars extends MapGame implements Listener {
 						noFallEnabled = false;
 					}
 				}, 5 * 20);
-				
+
 				Bukkit.getServer().getOnlinePlayers().forEach(player -> {
 					VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.NOTE_PLING, 1F, 1F);
 					player.setFoodLevel(20);
@@ -209,15 +209,15 @@ public class Skywars extends MapGame implements Listener {
 				sendBeginEvent();
 			}
 		});
-		
+
 		startTimer.addTickCallback(new TickCallback() {
 			@Override
 			public void execute(long timeLeft) {
 				Bukkit.getServer().getOnlinePlayers().forEach(player -> {
 					VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.NOTE_PLING, 1F, 1.3F);
-					VersionIndependentUtils.get().sendActionBarMessage(player, ChatColor.GOLD + "" + ChatColor.BOLD + "Starting in: " + ChatColor.AQUA + ChatColor.BOLD + timeLeft);	
+					VersionIndependentUtils.get().sendActionBarMessage(player, ChatColor.GOLD + "" + ChatColor.BOLD + "Starting in: " + ChatColor.AQUA + ChatColor.BOLD + timeLeft);
 				});
-				
+
 				Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Starting in: " + ChatColor.AQUA + ChatColor.BOLD + timeLeft);
 			}
 		});
@@ -244,7 +244,7 @@ public class Skywars extends MapGame implements Listener {
 			}
 		}, 5L, 5L);
 		playerLocationCheckTask.start();
-		
+
 		this.started = true;
 	}
 
@@ -274,7 +274,9 @@ public class Skywars extends MapGame implements Listener {
 			PlayerUtils.clearPlayerInventory(player);
 			PlayerUtils.resetPlayerXP(player);
 			player.setGameMode(GameMode.SPECTATOR);
-			VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.WITHER_DEATH, 1F, 1F);
+			if (!NovaSkywars.getInstance().isDisableDefaultEndSound()) {
+				VersionIndependentUtils.get().playSound(player, player.getLocation(), VersionIndependentSound.WITHER_DEATH, 1F, 1F);
+			}
 		});
 	}
 
