@@ -26,7 +26,7 @@ public class HardCodedSkywarsLootTableV1 extends LootTable {
 		food.setAmount(random.nextBoolean() ? 8 : 16);
 
 		result.add(food);
-		
+
 		/* The chest will first generate either 8-16 stone blocks or wood planks. */
 		ItemStack block = new ItemStack(random.nextBoolean() ? Material.STONE : Material.WOOD);
 		block.setAmount(random.nextBoolean() ? 16 : 32);
@@ -58,7 +58,6 @@ public class HardCodedSkywarsLootTableV1 extends LootTable {
 
 		List<ItemStack> swords = new ArrayList<ItemStack>();
 
-
 		for (int i = 0; i < 7; i++) {
 			swords.add(new ItemBuilder(Material.IRON_SWORD).build());
 		}
@@ -74,16 +73,18 @@ public class HardCodedSkywarsLootTableV1 extends LootTable {
 		result.add(swords.get(random.nextInt(swords.size())));
 
 		/*
-		 * after that it will add either 8-16 snowballs or eggs, and than it will choose
+		 * after that it will add either 2-4 snowballs or eggs, and than it will choose
 		 * one of the following a fishing rod, a water bucket, or a lava bucket -
 		 * chances go down from fishing rod to lava bucket.
 		 */
 
-		/* egg or snowball */
-		ItemStack projectile = new ItemStack(random.nextBoolean() ? Material.SNOW_BALL : Material.EGG);
-		projectile.setAmount(random.nextBoolean() ? 8 : 16);
+		if (random.nextBoolean()) {
+			/* egg or snowball */
+			ItemStack projectile = new ItemStack(random.nextBoolean() ? Material.SNOW_BALL : Material.EGG);
+			projectile.setAmount(random.nextBoolean() ? 2 : 4);
 
-		result.add(projectile);
+			result.add(projectile);
+		}
 
 		/* rod, water or lava */
 		List<ItemStack> utilityItem1 = new ArrayList<ItemStack>();
@@ -114,15 +115,13 @@ public class HardCodedSkywarsLootTableV1 extends LootTable {
 
 			if (rand <= 7) {
 				Material material;
-				
+
 				int rand2 = RandomGenerator.generate(1, 10, random);
-				if(rand2 < 8) {
+				if (rand2 < 8) {
 					material = part.getIronVersion();
 				} else {
 					material = part.getDiamondVersion();
 				}
-				
-				
 
 				result.add(new ItemBuilder(material).build());
 			}
@@ -173,13 +172,13 @@ public class HardCodedSkywarsLootTableV1 extends LootTable {
 				result.add(special);
 			}
 		}
-		
+
 		/* Cobweb */
 		if (RandomGenerator.generate(1, 2, random) == 1) {
 			int amount = random.nextBoolean() ? 4 : 8;
-			
+
 			ItemStack cobweb = new ItemBuilder(Material.WEB).setAmount(amount).build();
-			
+
 			result.add(cobweb);
 		}
 
