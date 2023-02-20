@@ -98,11 +98,6 @@ public class Skywars extends MapGame implements Listener {
 	}
 
 	@Override
-	public boolean eliminateIfCombatLogging() {
-		return NovaSkywars.getInstance().isCombatTagging();
-	}
-
-	@Override
 	public boolean isPVPEnabled() {
 		return countdownOver;
 	}
