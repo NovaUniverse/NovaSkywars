@@ -19,7 +19,7 @@ public class HardCodedSkywarsLootTableV1 extends LootTable {
 	}
 
 	@Override
-	public List<ItemStack> generateLoot(Random random, int count) {
+	public List<ItemStack> generate(Random random, int count) {
 		List<ItemStack> result = new ArrayList<ItemStack>();
 
 		ItemStack food = new ItemStack(random.nextBoolean() ? Material.COOKED_BEEF : Material.COOKED_CHICKEN);
